@@ -10,77 +10,6 @@
 .\"    
 .\" Revision History:
 .\"
-.\" 4.11.0
-.\"     
-.\"    2007-12-15 -- changes by Bill Marr (marr99@users.sourceforge.net): 
-.\"    
-.\"       Update version number and date.
-.\"       
-.\"       Describe newly-added languages: Slovak and Hawaiian
-.\"       
-.\"       Describe use of newly-added "on" preposition.
-.\"       
-.\"       Describe use of newly-added '-W' option.
-.\"       
-.\"       Remove 'F13' as a pre-defined event, now that the new 'on'
-.\"       preposition allows that event to be specified generically.
-.\"       
-.\"       Add long-missing descriptions of predefined symbols for 'paper size'
-.\"       and 'page orientation'.
-.\"       
-.\"       Mention the 'examples' directory and all the useful files contained
-.\"       within. 
-.\"       
-.\"       Mention the 'recycle.eps' EPS image file that comes with the 'pcal'
-.\"       distribution and give an example of how to use it.
-.\"       
-.\"       Mention the use of ImageMagick's 'convert' utility and the 'rsvg'
-.\"       utility to convert SVG images into EPS format.
-.\"       
-.\"       Fix a minor capitalization typo and a minor spelling error.
-.\"       
-.\"       Make various other minor tweaks and updates.
-.\"       
-.\" 4.10.0
-.\"     
-.\"    2006-07-12 -- changes by Bill Marr (marr99@users.sourceforge.net): 
-.\"    
-.\"       Update version number and date.
-.\"       
-.\"       Describe newly-added languages: Polish, Dutch, Romanian, and Danish
-.\"       
-.\"       Update 'AUTHORS' credits list.
-.\"       
-.\"       Expand the comments on the use of the time-zone option ('-z'). Also,
-.\"       make it clear that fractional values are allowed for the timezone 
-.\"       value specification.
-.\"       
-.\"       Make note of the options/values which can be specified
-.\"       semi-permanently via the makefile.
-.\"       
-.\"       Clarify interpretation of 1-digit or 2-digit specification of the year.
-.\"       
-.\"       Add a link to the website where 'pcal' (and 'lcal') can be found.
-.\"       
-.\"       Add a link to the website where the 'bsdmainutils' package (with the
-.\"       old Unix/BSD 'calendar' program) can be found.
-.\"       
-.\"       Remove now-obsolete comment about having to comment out the
-.\"       'showpage' command in EPS image files.  This only applied to
-.\"       'pcal' version 4.8.0.
-.\"       
-.\"       Clarify 'character remapping' and 'font use' comments in the '-a'
-.\"       option description section.  Mention a useful website that discusses
-.\"       Greek fonts. 
-.\"       
-.\"       Update date in reference to Adobe website.
-.\"       
-.\" 4.9.1
-.\"     
-.\"    2005-08-24 -- changes by Bill Marr (marr99@users.sourceforge.net): 
-.\"    
-.\"       Update version number and date.
-.\"       
 .\" 4.9.0
 .\"     
 .\"    2005-08-10 -- changes by Bill Marr (marr99@users.sourceforge.net): 
@@ -235,7 +164,7 @@
 .\"       this manual page easier to read.
 .\"    
 .\" 
-.TH PCAL 1 "18 Dec 2007" "Version 4.11.0" "USER COMMANDS"
+.TH PCAL 1 "18 Aug 2005" "Version 4.9.0" "USER COMMANDS"
 .SH NAME
 pcal \- generate PostScript (or HTML) calendars
 .SH SYNOPSIS
@@ -281,7 +210,6 @@ pcal \- generate PostScript (or HTML) calendars
 [\fB\-a\fP\ \fIoutput_language\fP\|]
 [\fB\-r\fP\ [\fImapping\fP]
 [\fB\-T\fP\ [B|I|R]]
-[\fB\-W\fP\ [left|center|right]]
 [month]
 [year]
 [nmonths]
@@ -300,10 +228,9 @@ if provided, should be numeric.  The
 .BR month
 value should be in the range 1 \- 12, and the 
 .BR year
-value should be specified as 1 or 2 digits (in which case it will be
-interpreted as that year in the current century) or as the full 4-digit year.
-If no numeric arguments are provided, the calendar for the current month and
-year will be generated.
+value should be specified as 1 or 2 digits or as the full 4-digit year.
+If no numeric arguments are provided, the calendar for the current month
+and year will be generated.
 .PP
 If one numeric argument is provided, it is interpreted as the
 .BR year
@@ -334,18 +261,17 @@ months are printed, rounded up to the nearest multiple of 12.
 
 .\" ------------------------------------------------------------------
 
-.SS The Date File (Configuration File)
+.SS The Date File
 
 By default,
 .I pcal
 simply prints an empty calendar.  Its real power is in its ability to place
-``events'' (and, for monthly-format PostScript calendars, Encapsulated
-PostScript images [e.g. photos and icons]) in appropriate days on the
-(PostScript or HTML) calendar, thus allowing the user to create personalized
-calendars.  This is achieved through the use of the ``date file'', also known
-as the ``configuration file''.
+``events'' (and, for monthly PostScript calendars, Encapsulated PostScript
+images [e.g. photos and icons]) in appropriate days on the calendar, thus
+allowing the user to create personalized calendars.  This is achieved through
+the use of the ``date file''.
 .PP
-The default date/configuration file is expected to be named
+The date file is named
 .IR \.calendar " (" pcal.dat
 under MS-DOS),
 or
@@ -381,16 +307,6 @@ can be found) can be specified using the
 .B \-f
 command-line option.  See the \fBOPTIONS\fP section for more details.
 .PP
-Every 
-.I pcal
-distribution comes with an 'examples' directory.  The `pcal-cfg.txt' file that
-is located there contains a myriad of examples of settings that can be used in
-your own configuration file.  Please check it out for lots of useful ideas.
-Furthermore, that directory contains several language/country-specific
-examples (including holiday and other event definitions) in various
-`calendar_xx.txt' files, where `xx' represents the 2-letter language code
-(e.g. 'calendar_de.txt' is the German example file).
-.PP
 If a date file is found, it will be searched for lines with
 leading dates matching the requested month and year.
 .PP
@@ -401,16 +317,14 @@ handled similarly as described in a later subsection.
 \fBtroff\fP-style escape sequences \\fB, \\fI,
 \\fP, and \\fR may be used to set the font style to Bold, Italic, the previous
 font style, or Roman respectively.  For those more familiar with HTML,
-<B>, <I>, </B>, and </I> may be used instead to enable/disable Bold or
-Italic font styles.  The font style is reset to Roman after each line break.
+<B>, <I>, and </B> or </I> may be used instead to set the font style to Bold,
+Italic, or
+the previous font style respectively.  The font style is reset to Roman after
+each line break.
 .PP
-Using the `include' pre-processor directive (described in the section entitled
-`Pre-Processor Functionality', below), other configuration files can be
-processed from within an existing configuration file.  That is, you can `nest'
-configuration files as needed.
-.PP
-Dates (essentially `events') in the configuration files may be expressed in
-any of several formats:
+Dates in the
+.I \.calendar
+file may be expressed in any of several formats:
 .RS
 .LP
 .IP \(bu 2
@@ -453,14 +367,14 @@ with which it `collides'.
 ``last'', ``odd'', ``even'', or ``all''
 .TP
 	<prep>
-:= ``on'', ``before'', ``preceding'', ``after'', ``following'', ``on_or_before''
+:= ``before'', ``preceding'', ``after'', ``following'', ``on_or_before''
 (``oob''), ``on_or_after'' (``ooa''), ``nearest'', ``nearest_before``, or
 ``nearest_after``
 .TP
 	<pre_defined_event>
 := ``Christmas'', ``Thanksgiving'', ``Easter'', ``Good_Friday'', ``GEaster''
-(Orthodox Easter), ``Gstgeorge'' (Orthodox holiday), and ``Gmarcus'' (Orthodox
-holiday).
+(Orthodox Easter), ``Gstgeorge'' (Orthodox holiday), ``Gmarcus'' (Orthodox
+holiday), and ``F13'' (Friday the 13th, for the superstitious among us).
 .TP
 	<sep>
 := one or more non-numeric, non-space, non-`*' characters
@@ -532,7 +446,7 @@ Examples:
 	25 Dec*                     Christmas     # European
 	25. Dec*                    Christmas     # European
 .sp
-	Fri on all 13               Avoid black cats!   # 'Friday the 13th'
+	F13                   Avoid black cats!   # 'Friday the 13th'
 .fi
 .ft
 .PP
@@ -611,7 +525,9 @@ Un*x
 .B \-c
 flag) input.
 .PP
-Lines in the configuration file consisting of 
+Lines in the
+.I \.calendar
+file consisting of 
 .B year ####
 (where
 .B ####
@@ -620,7 +536,9 @@ to set the year for following entries.  This assumes that the following
 entries do not contain a year; any date entries containing year information
 will set the remembered year to that year.
 .PP
-Lines in the configuration file consisting of 
+Lines in the
+.I \.calendar
+file consisting of 
 .B year all
 (or, alternatively, \fByear *\fP) direct \fIpcal\fP to wildcard
 following entries against every applicable year.  This assumes
@@ -629,7 +547,9 @@ entries do not contain a year; any date entries containing year information
 (or an explicit \fByear ####\fP entry) will set the remembered year
 to that year.
 .PP
-Lines in the configuration file consisting of 
+Lines in the
+.I \.calendar
+file consisting of 
 .B opt <options>
 can be used to override the defaults for
 any command-line options except
@@ -645,7 +565,9 @@ any command-line options except
 Any options specified in this manner
 are, in turn, overridden by those specified explicitly on the command line.
 .PP
-Lines in the configuration file consisting of
+Lines in the
+.I \.calendar
+file consisting of
 .B note{/<number>} <month>
 can be used to place notes regarding the
 entire month in one of the unused blocks of the calendar.  The
@@ -673,7 +595,9 @@ and
 below).  You can place several notes in the same box.  You can also use more
 than 1 box for the various monthly notes.
 .PP
-Lines in the configuration file consisting of 
+Lines in the
+.I \.calendar
+file consisting of 
 .B input-language XX
 (where
 .B XX
@@ -687,9 +611,10 @@ distinct from the specification of 'output language' as accomplished with the
 .B \-a
 option.
 .PP
-Comments are supported in the configuration file.  Any characters following a
-`#' character are ignored, through the end of that line, unless the `#'
-character is escaped by `\\'.
+Comments are supported in the
+.I \.calendar
+file.  Any characters following a `#' character are ignored, through the end
+of that line, unless the `#' character is escaped by `\\'.
 
 .\" ------------------------------------------------------------------
 
@@ -711,10 +636,10 @@ delete first Friday in all  Poker game
 .fi
 .RE
 .LP
-This results in an event labeled `Poker game' on every Friday except the first
-Friday of the month.  If you delete an entry which is marked as a holiday, the
-`holiday' flag for that day will be recalculated.  Any `delete' entries which
-don't match any pre-existing entries are silently ignored.
+This results in an event labelled `Poker game' on every Friday except the
+first Friday of the month.  If you delete an entry which is marked as a
+holiday, the `holiday' flag for that day will be recalculated.  Any `delete'
+entries which don't match any pre-existing entries are silently ignored.
 
 .\" ------------------------------------------------------------------
 
@@ -976,19 +901,6 @@ U.S. ``Presidents' Day'' holiday, along with the event text:
 Note that the icon for Lincoln is shifted to the right by 48 typographic
 points so as not to overlay the first icon.
 .PP
-The
-.I pcal
-releases come with a single EPS sample file ('eps/recycle.eps') of the
-ubiquitous 'recycle' icon (3 green arrows in a triangular shape).  Such an
-image might be used with configuration file settings like this:
-.PP
-.ft CW
-.nf
-	second Sat in all RECYCLE!
-	second Sat in all image:/eps-path/recycle.eps 0.039 0.039 34 -9
-.fi
-.ft
-.PP
 In cases where you're displaying non-holiday event text (e.g. someone's
 birthday) and an EPS image, you'll often need to use a negative `Y-delta'
 value on the EPS image specification line, in order to shift the image down so
@@ -1003,10 +915,21 @@ Unfortunately, most EPS images cannot be used directly by
 
 .RS
 .LP
-Depending on the EPS image used and how it was created, you may have to remove
-or comment out some or all of the PostScript `translate' commands, in order to
-avoid the use of illogical X-delta and Y-delta values when specifying the EPS
-image in your
+In the older 4.8.0 release of
+.IR pcal
+(which was the first release to offer EPS image capability), you had to remove
+or comment out the PostScript `showpage' command near the end of the EPS image
+file.  If you failed to do this, the calendar would be printed immediately (or
+displayed immediately, if previewing on-screen) after encountering the EPS
+image, prior to completion of the processing of the rest of the EPS images for
+that month!
+.B Fortunately, this restriction was removed in the 4.9.0 release of
+.IR pcal .
+.PP
+Furthermore, depending on the EPS image used and how it was created, you may
+have to remove or comment out some or all of the PostScript `translate'
+commands, in order to avoid the use of illogical X-delta and Y-delta values
+when specifying the EPS image in your
 .I pcal
 date file. Most programs that generate EPS output (either directly or via
 conversion from some other graphic format) seem to have these `translate'
@@ -1032,9 +955,7 @@ gv (version 3.5.8) -- EPS images appear fine
 .IP \(bu 2
 ggv (versions 2.4.0.1 and 2.6.1) -- EPS images appear fine
 .IP \(bu 2
-older kghostview (versions 0.13.2 [KDE 3.1.4] and 0.2.0 [KDE 3.2.3 and 3.3.2]) -- EPS images DO NOT APPEAR!
-.IP \(bu 2
-newer kghostview (version 0.2.0 [KDE 3.4.2 and 3.5.4]) -- EPS images appear fine
+kghostview (versions 0.13.2 [KDE 3.1.4] and 0.2.0 [KDE 3.2.3 and 3.3.2]) -- EPS images DO NOT APPEAR!
 .RE
 .LP
 .RE
@@ -1042,54 +963,26 @@ newer kghostview (version 0.2.0 [KDE 3.4.2 and 3.5.4]) -- EPS images appear fine
 .RE
 .LP
 For converting non-EPS images (e.g. photos) to EPS format, one can use the
-graphical GNU Image Manipulation Program, a.k.a. `The GIMP':
+graphical image manipulation program called `The Gimp':
 .RS
 .LP
 .IR http://www.gimp.org
 .RE
-
 .LP
-For icons/images in WMF format (which are popular in various 3rd-party,
-legacy-OS, commercial calendar programs), the `libwmf'/`wmf2eps'
-library/utility is useful for generating
+For icons in WMF format (which are popular in various 3rd-party, legacy-OS,
+commercial calendar programs), the `libwmf'/`wmf2eps' library/utility is
+useful for generating
 .IR pcal -capable
-EPS images.  It can be found at this site:
+EPS icons.  It can be found at this site:
 .RS
 .LP
 .IR http://wvware.sourceforge.net/libwmf.html
 .RE
+.LP
 
-.LP
-For icons/images in SVG format, the ImageMagick `convert' utility is sometimes
-useful for generating
-.IR pcal -capable
-EPS images.  This suite of utilities (which includes other useful ImageMagick
-utilities like `display' and `identify') may already be available on your
-Linux distribution.  If not, it can be found at this site:
-.RS
-.LP
-.IR http://www.imagemagick.org
-.RE
-
-.LP
-For cases where ImageMagick's `convert' utility fails to properly convert
-SVG-format images to EPS format, you can try the method of converting the SVG
-image into an intermediate format (e.g. PNG) using the `rsvg' utility.  This
-utility may already be available on your Linux distribution.  If not, it can
-be found at this site:
-.RS
-.LP
-.IR http://librsvg.sourceforge.net/
-.RE
-.LP
-From the PNG format, the image can often then be successfully converted to EPS
-format, using the above-mentioned ImageMagick `convert' utility.
-
-.LP
 The 
 .I Open Clip Art Library
-is a good source of freely-usable images (many of which are in SVG format) for
-decorating your events:
+is a good source of freely-usable images for decorating your events:
 .RS
 .LP
 .IR http://www.openclipart.org
@@ -1205,7 +1098,7 @@ is smart enough to translate
 .B ~/
 to the user's home directory.
 .PP
-.I Pcal
+.I pcal
 normally terminates immediately if the file specified in an
 .BR include
 directive does not exist.  An alternate form of the directive,
@@ -1440,27 +1333,9 @@ instead of to stdout.
 .TP
 .B \-l
 Causes the output to be in landscape mode (default).
-.PP
-
-.IP
-.I Pcal
-predefines the symbol `ORIENTATION_LANDSCAPE' whenever `landscape' page
-orientation is enabled.  This can be useful for providing alternate values in
-the configuration file for EPS image placement and scaling, based on the page
-orientation.
-
 .TP
 .B \-p
 Causes the output to be in portrait mode.
-.PP
-
-.IP
-.I Pcal
-predefines the symbol `ORIENTATION_PORTRAIT' whenever `portrait' page
-orientation is enabled.  This can be useful for providing alternate values in
-the configuration file for EPS image placement and scaling, based on the page
-orientation.
-
 .TP
 .B \-P
 Selects the paper size.  The following sizes are supported:
@@ -1478,27 +1353,6 @@ tabloid \(em 11.0 x 17.0 inches
 .RE
 .RE
 .LP
-
-.RS
-.I Pcal
-predefines one of the following symbols based on the current paper size:
-.RS
-.LP
-.IP \(bu 2
-PAPERSIZE_LETTER
-.IP \(bu 2
-PAPERSIZE_LEGAL
-.IP \(bu 2
-PAPERSIZE_A4
-.IP \(bu 2
-PAPERSIZE_TABLOID
-.RE
-.LP
-These symbol definitions can be useful for providing alternate values in the
-configuration file for EPS image placement and scaling, based on paper size.
-.RE
-.LP
-
 .TP
 .B \-j
 Causes the Julian date (day of year) to be printed in each calendar box.
@@ -1572,9 +1426,6 @@ day boxes.  For use with color printers, these values may optionally be
 specified as a set of \fIred\fP:\fIgreen\fP:\fIblue\fP (RGB) values, each of
 which must in the range 0.0 through 1.0.  At least one `:' must be present for
 these values to be recognized as RGB colors; omitted values are set to 0.0.
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .BI \-F " day"
 Selects weekday
@@ -1582,9 +1433,6 @@ Selects weekday
 as the first day of the week.  The given day will appear in the left-most
 column of the calendar.  \fIday\fP may be specified either as a weekday
 name or, optionally, as a number in the range 0 (Sunday) through 6 (Saturday).
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .B \-A
 Directs
@@ -1594,9 +1442,6 @@ to use American date conventions (
 and
 .B month dd
 ) when parsing the date file.  This is the default.
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .B \-E
 Directs
@@ -1606,9 +1451,6 @@ to use European date conventions (
 and
 .B dd month
 ) when parsing the date file.
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .BI \-X " xtrans"
 Specifies the x-axis translation value for positioning the output on the
@@ -1657,9 +1499,6 @@ changes the point size to 54 without affecting the font name.
 Note: For yearly calendars, any specification of font 
 .I size
 is ignored.
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .BI \-d " \fR[\fIdate_font\fR][\fB/\fIsize\fR]"
 Similar to the
@@ -1670,9 +1509,6 @@ numbers inside the box for each day).
 Note: For yearly calendars, any specification of font 
 .I size
 is ignored.
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .BI \-n " \fR[\fItext_font\fR][\fB/\fIsize\fR]"
 Similar to the
@@ -1684,9 +1520,6 @@ with each day and for any text in the monthly ``Notes'' box.
 .IP
 Note: This option applies to monthly calendars only. For yearly calendars,
 this option does not apply.
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .BI \-L " string"
 Causes the accompanying string to be printed as a left-justified footer.
@@ -1812,14 +1645,6 @@ calculations, adjusting the phase by
 hours (where
 .I time_zone
 is expressed in hours west of UTC).
-.IP
-For example, New York residents (USA Eastern time zone) would use '-z 5' while
-on Eastern Standard Time (winter) and '-z 4' while on Eastern Daylight Time
-(summer).  People in India would use '-z-5.5'.  Notice that fractional values
-are allowed.
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
 .TP
 .B \-h
 Causes
@@ -1854,8 +1679,6 @@ Currently, the following languages are supported:
 (Catalan),
 .B cs
 (Czech),
-.B da
-(Danish),
 .B de
 (German),
 .B el
@@ -1872,8 +1695,6 @@ Currently, the following languages are supported:
 (Finnish),
 .B fr
 (French),
-.B ha
-(Hawaiian),
 .B hu
 (Hungarian),
 .B it
@@ -1882,18 +1703,10 @@ Currently, the following languages are supported:
 (Lithuanian),
 .B lv
 (Latvian),
-.B nl
-(Dutch),
-.B pl
-(Polish),
 .B pt
 (Portuguese),
-.B ro
-(Romanian),
 .B ru
 (Russian),
-.B sk
-(Slovak),
 .B sv
 (Swedish),
 and
@@ -1903,30 +1716,22 @@ The default is
 .BR en .
 .IP
 Note that this option does \fBnot\fP specify the `input language', which is
-the language used to process events in the configuration file ('English', by
-default, unless changed with the
+the language used to process events in the 
+.I \.calendar
+(pcal configuration) file ('English', by default, unless changed with the
 .I input-language XX
 directive).  See the section
 .I The Date File
 for more details on specifying the `input language'.
 .IP
 .B "Note:"
-In order to display diacritical marks, languages other than English require
-that the characters be remapped.  Normally, no action is required since
-\fIpcal\fP automatically selects a remapping which is appropriate to the
-selected language.  However, if you want to override the default remapping for
-a given language, you would use the
-.BR \-r
-option (e.g. "-r Latin1").
-.IP
-Furthermore, an appropriate font should be selected as needed using the
-.BR \-t
-option (e.g. "-t some-latin1-font-name").  Any language using the "Latin1"
-remapping (e.g. French, German, Italian, Spanish, etc) requires an ISO 8859-1
-('Latin1') font.  The Greek language requires an ISO 8859-7 (similar to
-ELOT-928) font (available from Angelo Haritsis <ah@doc.ic.ac.uk>; also see
-http://www.hellenic.net/fonts/).  Similarly, Russian requires a KOI8-R font
-while Ukrainian requires a KOI8-U font.
+In order to display diacritical marks, languages other than English
+require that the fonts be remapped (typically via the "Latin1"
+remapping).  If no remapping is specified, \fIpcal\fP selects a remapping
+appropriate to the selected language; note that the Greek language also
+requires an ELOT-928 font (available from ah@doc.ic.ac.uk).  Also see the
+.BR \-r " and " \-t
+options.
 .IP
 .I Pcal
 predefines the symbol \fBlang_XX\fP, where \fBXX\fP is the two-character
@@ -1992,10 +1797,6 @@ of the following:
 .RE
 .LP
 
-.IP
-This option may also be set semi-permanently by altering the makefile
-(`Makefile' for most environments, 'Makefile.DOS' for MS-DOS).
-
 .TP
 .BR \-T " [B|I|R]"
 Select the default typeface
@@ -2003,12 +1804,6 @@ Select the default typeface
 flag may be specified multiple times within the date file
 (via "opt") to reset the font style on the fly \(em for example, to
 print all holidays in Bold.
-
-.TP
-.BR \-W " [left|center|right]"
-Specify the horizontal alignment of the month/year heading (left, center,
-right) (for monthly-format calendars only).
-
 .PP
 Any option taking a negative value (e.g.
 .BR "\-Y \-###")
@@ -2052,7 +1847,9 @@ is defined, its contents are parsed as a command line.  Flags set via
 .BR PCAL_OPTS
 override the program defaults, but are overridden by options set via 
 .B opt
-lines in the configuration file or explicitly on the command line.
+lines in the
+.I \.calendar
+file or explicitly on the command line.
 
 .\" ------------------------------------------------------------------
 
@@ -2106,7 +1903,9 @@ consider January 1990:
 .fi
 .ft
 .IP \  2
-If the configuration file looked like this:
+If the
+.I \.calendar
+file looked like this:
 .PP
 .ft CW
 .nf
@@ -2117,7 +1916,8 @@ If the configuration file looked like this:
 .IP \  2
 \&\.\.\. then
 .I pcal
-would mark the 15th as ``payday'' since at that point in the configuration
+would mark the 15th as ``payday'' since at that point in the
+.I \.calendar
 file it has no way of knowing that January 15th will later be flagged as a
 holiday.  If the two lines were reversed, such that the holiday preceded the
 ``workday'' wildcard, then
@@ -2182,34 +1982,13 @@ line in the date file.
 .\" ------------------------------------------------------------------
 
 .SH SEE ALSO
-Website for
-.I pcal
-and
-.I lcal
-(a lunar calendar generation application):
-.PP
-.IP
-http://pcal.sourceforge.net
-.PP
 cal(1),
 calendar(1).
-.PP
-The old, simple Unix/BSD 'calendar' program, which can be used with
-.I pcal
-and the '-c' option is part of the BSD Main Utilities
-('bsdmainutils') package and is available at the Debian site:
-.RS
-.LP
-.IR http://packages.debian.org/stable/source/bsdmainutils
-.RE
-.LP
-This old program does not seem to be included with most GNU/Linux
-distributions these days.
 .PP
 For more information on PostScript, consult the free, online Adobe book
 entitled
 .IR "PostScript Language Reference Manual" , 
-which can be found here (as of Dec 2007):
+which can be found here (as of Aug 2005):
 .RS
 .LP
 .IR http://partners.adobe.com/public/developer/ps/index_specs.html
@@ -2226,18 +2005,16 @@ Tessin, Joe Wood, Jeff Mogul, Mark Hanson, and others whose names have
 regrettably been lost.  This C version was originally created by Ken Keirnan
 of Pacific Bell; additional enhancements by Joseph P. Larson, Ed Hand, Andrew
 Rogers, Mark Kantrowitz, Joe Brownlee, Andy Fyfe, Steve Grandi, Geoff
-Kuenning, Stefan Fronzek (1-column HTML output), Bill Bogstad (event deletion
-capability), and Bill Marr (embedded EPS images, command-line paper size
-specification, new paper sizes [legal & tabloid], additional character
-mappings for new languages, and various cleanups).  The moon routines were
-originally written by Jef Poskanzer and Craig Leres, and were incorporated
-into
+Kuenning, Stefan Fronzek (1-column HTML output), Don Laursen (`Friday the
+13th' events), Bill Bogstad (event deletion capability), and Bill Marr
+(embedded EPS images, command-line paper size specification, new paper sizes
+[legal & tabloid], additional character mappings for new languages, and
+various cleanups).  The moon routines were originally written by Jef Poskanzer
+and Craig Leres, and were incorporated into
 .I pcal
 by Richard Dyson.  International language support was initially added by
 Angelo Haritsis.  Additional languages were added by Andrew Rogers
 (Esperanto), Lars Wirzenius (Finnish), Pedro Zorzenon Neto (Portuguese), Joel
 Fredrikson (Swedish), Volodymyr M. Lisivka (Ukrainian), Neeme Praks (Estonian,
 Russian, Latvian, Lithuanian), Peter Cernoch (Czech), Ferenc Kruzslicz
-(Hungarian), Carles Sadurní Anguita (Catalan), Dominik 'Chiron' Derlatka
-(Polish), Ewald Beekman (Dutch), Claudiu Costin (Romanian), Kenneth Geisshirt
-(Danish), Zdenko Podobny (Slovak), and Eric Nichols (Hawaiian).
+(Hungarian), and Carles Sadurní Anguita (Catalan).
